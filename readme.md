@@ -7,7 +7,7 @@ Node.js and npm  installed
 A MongoDB database instance
 
 ## Installation:
-git clone https://github.com/your-username/your-project-name.git
+git clone https://github.com/internship-pentatech-it-solutions/MARK_ARYEE_Nodejs_Contacts_Backend.git
 cd your-project-name
 
 Install Dependencies:
