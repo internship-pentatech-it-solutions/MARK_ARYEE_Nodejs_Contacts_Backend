@@ -75,14 +75,16 @@ const deleteContact = async (req, res) => {
 module.exports = {createContact, getAllContact, getContact, updateContact, deleteContact};
 
 //router.js
+const {authenticateToken} = require('./auth.js');
 const express = require("express");
 const router = express.Router();
 
+
 router.post("/todo", createContact);
-router.get("/todo", getAllContact);
-router.get("/todo/:id", getContact)
-router.put("/todo/:id", updateContact);
-router.delete("/todo/:id", deleteContact);
+router.get("/todo", authenticateToken, getAllContact);
+router.get("/todo/:id", authenticateToken, getContact)
+router.put("/todo/:id", authenticateToken, updateContact);
+router.delete("/todo/:id", authenticateToken, deleteContact);
 
 module.export = router;
 
@@ -92,6 +94,9 @@ module.export = router;
 
 
 // index.js
+const userModel = require('./models/userModel.js');
+const userRoutes = require('./routes/userRoutes.js');
+
 const cors = require("cors");
 require("dotenv").config();
 const app = express();
@@ -99,6 +104,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/api/v1/", router);
+app.use("/", userRoutes);
 
 mongoose.connect(process.env.MONGO_URI).then( ()=>{
 	console.log("Database Connected");
